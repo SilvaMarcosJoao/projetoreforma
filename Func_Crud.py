@@ -122,7 +122,7 @@ class Sistema:
             self.conectar()
             cursor = self.__conexao.cursor() 
             self.porCategoria = cursor.execute(f'''SELECT idProduto, descricao, fornecedor, quantidade, precoUnitario, precoTotal, dataCompra, categoriaProduto.nomeCategoria 
-                from Produto, produtoCategoria where Produto.idCategoria = produtoCategoria.idCategoria and produtoCategoria.idCategoria = {IdCategoria} ''').fetchall()
+                from categoriaProduto, Produto  WHERE categoriaProduto.idCategoria = Produto.idCategoria and categoriaProduto.idCategoria = {IdCategoria} ''').fetchall()
         except sqlite3.Error:
             print('\033[1;33mNada foi encontrado\033[m')
         else:
