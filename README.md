@@ -24,11 +24,13 @@ informar o ID, de qual produto ele deseja alterar suas informações.**
 **- Funcionalidade Excluir Produto: O usuário irá informar o ID de um produto, se este existir será excluído.**
 
 #Acesso ao Projeto
-**Ao baixar o projeto, salve na pasta C:(Windows), após isso dentro da pasta do projeto, abra a pasta dist e dentro dela execute o arquivo principal.exe, este é o executável do sistema.**
+****
 
 #Tecnologias Utilizadas
 **Python 3.11.2**
+**Customtkinter**
 **SQLite**
+
 
 #Autor
 **João Marcos da Silva**
