@@ -1,39 +1,26 @@
-#Gerencimento Produtos Reforma
-
-#Descricao
-O objetivo do projeto é gerenciar os produtos comprados para reforma de uma casa, de modo que o usuário
-consiga enxergar os gastos na sua reforma. Isso se faz necessário, pois nem todos os produtos são adquiridos em um mesmo lugar, se quisermos somar os gastos dos produtos da reforma sem a ajuda de um software, torna-se complicado, incerto e há o surgimento de riscos de extravios das notas fiscais. Com este projeto, o usuário a partir do momento em que compra seus produtos para reforma, vai inserindo-os e o software irá gerenciar essas informações.
-
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
-
-#Funcionalidades
-**- Funcionalidade Cadastrar Produto: É onde os produtos da reforma, poderão ser inseridos.**
-
-**- Funcionalidade Listar Produtos: Após cadastrados, todos os produtos poderão ser vistos.**
-
-**- Funcionalidade Listar Produtos por Categoria: Os produtos poderão ser exibidos de acordo com uma
-categoria escolhida pelo usuário são elas, Alvenaria e Acabamento.**
-
-**- Funcionalidade Listar Mais Caro: Será exibido o produto mais caro entre todos.**
-
-**- Funcionalidade Listar Produto: Será exibido um produto específico de acordo com o ID informado pelo usuário.**
-
-**- Funcionalidade Editar Produto:Alteração das informações de um produto, para isso, o usuário deverá
-informar o ID, de qual produto ele deseja alterar suas informações.**
-
-**- Funcionalidade Excluir Produto: O usuário irá informar o ID de um produto, se este existir será excluído.**
-
-#Acesso ao Projeto
-****
-
-#Tecnologias Utilizadas
-**Python 3.11.2**
-**Customtkinter**
-**SQLite**
+<h1>Projeto Reforma</h1>
+<div>
+  <h2>Imagem do sistema</h2>
+  <img src="telaProjeto.png"/>
+  <h3>Objetivo do projeto</h3>
+  <p>Apesar de ser um projeto simples, a construção desse software fez se necessária, para ajudar meus pais no gerenciamento dos gastos que tiveram durante o período de reforma da nossa casa. Isso se fez necessário, pois com o passar do tempo, o risco de extravio dessas notas é grande, além disso, a tinta do papel, acaba se desgastando, apagando informações importantes, como: Nome da loja onde o material foi adquirido, quantidade, valor, e data. Com isso, mesmo as notas se desgastando, as informações de materiais adquiridos estão registradas, para que eles possam visualizar de forma rápida e fácil a qualquer momento.</p>
+  <h3>Funcionalidades</h3>
+  <ul>
+    <li>Cadastrar Produto></li>
+    <li>Exibir Produtos</li>
+    <li>Exibir Produto</li>
+    <li>Exibir Produtos por Categoria(Alvenaria ou Acabamento)</li>
+    <li>Alterar</li>
+    <li>Excluir</li>
+    <li>Total de uma compra</li>
+    <li>Total gasto</li>
+  </ul>
+  <h3>Tecnologias Utilizadas</h3>
+  <img src="" />
+  <h3>Autor</h3>
+  <p>João Marcos.</p>
+</div>
 
 
-#Autor
-**João Marcos da Silva**
 
-#Licença
-**MIT Licensed**
+
