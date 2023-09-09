@@ -98,7 +98,8 @@ class appPrincipal(eventos.Conectivos):
                                 font=('Arial', 12, 'bold'), 
                                 width=70, height=40,
                                 fg_color='#FF9044',
-                                hover_color='#fa7a32')
+                                hover_color='#fa7a32',
+                                command=self.inserirProduto)
         self.btn_salvar.place(relx=0.925, rely=0.19)
 
         self.btn_exibir = CTkButton(self.PrincFrame, 
