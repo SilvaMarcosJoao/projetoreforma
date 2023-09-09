@@ -2,6 +2,8 @@ import bancoDado
 
 class Produto:
     banco = bancoDado.BancoDados()
+    banco.tabelaCategoria()
+    banco.tabelaProduto()
     def __init__(self = None, 
                 descricao = None, 
                 fornecedor = None, 
@@ -88,7 +90,7 @@ class Produto:
         """
         try:
             self.banco.conectar()
-            self.produtos = self.banco.cursor.execute('SELECT * FROM  produto').fetchall()
+            self.produtos = self.banco.cursor.execute(" SELECT * FROM produto").fetchall()
         except(NameError, ConnectionError, TypeError):
                 print('\033[1;33mErro ao listar os produtos\033[m')
         else:

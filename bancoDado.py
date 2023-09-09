@@ -8,6 +8,30 @@ class BancoDados:
         self.conexao = None
         self.cursor = None
 
+    def tabelaCategoria(self) -> None:
+        self.conectar()
+        self.cursor.execute(""" CREATE TABLE IF NOT EXISTS categoriaProduto (
+	        idCategoria	INTEGER NOT NULL UNIQUE,
+	        nomeCategoria	TEXT(40) NOT NULL,
+	        PRIMARY KEY(idCategoria AUTOINCREMENT) ); """)
+        self.conexao.commit()
+        self.desconectar()
+
+    def tabelaProduto(self) -> None:
+        self.conectar()
+        self.cursor.execute(""" CREATE TABLE IF NOT EXISTS produto (
+            idProduto	INTEGER NOT NULL UNIQUE,
+            descricao	TEXT(120) NOT NULL,
+            fornecedor	TEXT(50) NOT NULL,
+            quantidade	INTEGER NOT NULL,
+            precoUnitario	REAL NOT NULL,
+            precoTotal	REAL NOT NULL,
+            dataCompra	TEXT(10) NOT NULL,
+            idCategoria	INTEGER NOT NULL,
+            FOREIGN KEY(idCategoria) REFERENCES categoriaProduto(idCategoria),
+            PRIMARY KEY(idProduto AUTOINCREMENT) ); """)
+        self.conexao.commit()
+        self.desconectar()
 
     def conectar(self):
         """
@@ -33,4 +57,4 @@ class BancoDados:
         except (ConnectionError, sqlite3.Error):
             print('\033[1;32mErro ao desconectar-se\033[m')
         else:
-            print('Descontectado')
+            print('Desconectado')
