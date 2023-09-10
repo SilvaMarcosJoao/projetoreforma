@@ -3,35 +3,7 @@ from produto import *
 
 class BancoDados:
     def __init__(self) -> None:
-        
-        self.nomeBanco = '..\\projetoreforma\\reformaBanco.db'
-        self.conexao = None
-        self.cursor = None
-
-    def tabelaCategoria(self) -> None:
-        self.conectar()
-        self.cursor.execute(""" CREATE TABLE IF NOT EXISTS categoriaProduto (
-	        idCategoria	INTEGER NOT NULL UNIQUE,
-	        nomeCategoria	TEXT(40) NOT NULL,
-	        PRIMARY KEY(idCategoria AUTOINCREMENT) ); """)
-        self.conexao.commit()
-        self.desconectar()
-
-    def tabelaProduto(self) -> None:
-        self.conectar()
-        self.cursor.execute(""" CREATE TABLE IF NOT EXISTS produto (
-            idProduto	INTEGER NOT NULL UNIQUE,
-            descricao	TEXT(120) NOT NULL,
-            fornecedor	TEXT(50) NOT NULL,
-            quantidade	INTEGER NOT NULL,
-            precoUnitario	REAL NOT NULL,
-            precoTotal	REAL NOT NULL,
-            dataCompra	TEXT(10) NOT NULL,
-            idCategoria	INTEGER NOT NULL,
-            FOREIGN KEY(idCategoria) REFERENCES categoriaProduto(idCategoria),
-            PRIMARY KEY(idProduto AUTOINCREMENT) ); """)
-        self.conexao.commit()
-        self.desconectar()
+        self.nomeBanco = 'reformaBanco.db'
 
     def conectar(self):
         """
@@ -58,3 +30,37 @@ class BancoDados:
             print('\033[1;32mErro ao desconectar-se\033[m')
         else:
             print('Desconectado')
+
+    def tabelaCategoria(self) -> None:
+        try:
+            self.cursor.execute(""" CREATE TABLE IF NOT EXISTS categoriaProduto (
+                idCategoria	INTEGER NOT NULL UNIQUE,
+                nomeCategoria	TEXT(40) NOT NULL,
+                PRIMARY KEY(idCategoria AUTOINCREMENT) ); """)
+        except Exception(AttributeError, ConnectionError, sqlite3.Error) as erroCategoria:
+            print(erroCategoria)
+
+    def tabelaProduto(self) -> None:
+        try:
+            
+            self.cursor.execute(""" CREATE TABLE IF NOT EXISTS produto (
+                idProduto	INTEGER NOT NULL UNIQUE,
+                descricao	TEXT(120) NOT NULL,
+                fornecedor	TEXT(50) NOT NULL,
+                quantidade	INTEGER NOT NULL,
+                precoUnitario	REAL NOT NULL,
+                precoTotal	REAL NOT NULL,
+                dataCompra	TEXT(10) NOT NULL,
+                idCategoria	INTEGER NOT NULL,
+                FOREIGN KEY(idCategoria) REFERENCES categoriaProduto(idCategoria),
+                PRIMARY KEY(idProduto AUTOINCREMENT) ); """)
+        except Exception(AttributeError, ConnectionError, sqlite3.Error) as erroProduto:
+            print(erroProduto)
+
+    
+
+db = BancoDados()
+db.conectar()
+db.tabelaCategoria()
+db.tabelaProduto()
+db.desconectar()
