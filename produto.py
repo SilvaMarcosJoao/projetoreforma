@@ -90,7 +90,7 @@ class Produto:
         """
         try:
             self.banco.conectar()
-            self.produtos = self.banco.cursor.execute(" SELECT * FROM produto").fetchall()
+            self.produtos = self.banco.cursor.execute('SELECT * FROM  produto').fetchall()
         except(NameError, ConnectionError, TypeError):
                 print('\033[1;33mErro ao listar os produtos\033[m')
         else:
