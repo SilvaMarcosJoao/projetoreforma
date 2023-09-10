@@ -26,15 +26,15 @@ class Conectivos(produto.Produto):
             if (len(self.et_descricao.get()) == 0 or 
                 len(self.et_fornecedor.get()) == 0 or 
                 self.et_quantidade.get() == 0 or 
-                self.et_preco.get() == 0 or
+                self.et_precoUnit.get() == 0 or
                 len(self.categoria.get()) == 0 or
                 len(self.et_data.get()) == 0):
                 messagebox.showwarning('Alerta', 'Por favor preencha os campos obrigatórios')
             elif len(self.et_descricao.get()) > 120:
                 messagebox.showwarning('Atenção', 'Preencha a descrição corretamente')
-            elif self.et_fornecedor.get() > 40:
+            elif len(self.et_fornecedor.get()) > 40:
                 messagebox.showwarning('Atenção', 'Campo de fornecedor com tamnho maior que o permitido')
-            elif self.et_data.get() > 10:
+            elif len(self.et_data.get()) > 10:
                 messagebox.showwarning('Atenção', 'Preencha a data corretamente')
             else:
                 self.prod.set_descricao(self.et_descricao.get())
@@ -57,8 +57,9 @@ class Conectivos(produto.Produto):
                                 self.prod.get_idCategoria())
                 messagebox.showinfo('Sistema', 'Produto cadastrado com sucesso!')
                 self.exibirProdutos()
-        except:
+        except Exception as erro:
             messagebox.showerror('Erro', 'Houve um erro no cadastro do produto')
+            print(erro)
         self.limpa_campos_produto()
 
     def exibirProdutos(self):
@@ -81,6 +82,7 @@ class Conectivos(produto.Produto):
                 self.resFull.set(f'{self.soma:.2f}')
         except Exception as erro:
             messagebox.showerror('Erro', 'Houve um erro na exibição de produtos', erro)
+            print(erro)
 
     def buscarProduto(self):
         """
@@ -96,16 +98,14 @@ class Conectivos(produto.Produto):
             else:
                 self.treeLista.delete(*self.treeLista.get_children())
                 self.busca = self.prod.listarProduto(self.descricaoProd)
-                try:
-                    if len(self.busca) == 0:
-                        messagebox.showwarning('Atenção', 'Nenhum produto encontrado')
-                    else:
-                        for b in self.busca:
-                            self.treeLista.insert('', END, values=b)
-                except:
-                    messagebox.showerror('Erro', 'Erro no resultado da busca')
-        except:
+                if len(self.busca) == 0:
+                    messagebox.showwarning('Atenção', 'Nenhum produto encontrado')
+                else:
+                    for b in self.busca:
+                        self.treeLista.insert('', END, values=b)
+        except Exception as erro:
             messagebox.showerror('Erro', 'Não foi possível buscar produtos')
+            print(erro)
         self.limpa_campos_produto()
 
     def buscarPorCategoria(self):
@@ -115,24 +115,23 @@ class Conectivos(produto.Produto):
         :param: Não há parâmetro.
         :return: Não há retorno.
         """
-        self.idCat = self.et_consultaCategoria.get()
+        self.idCat = int(self.et_consultaCategoria.get())
         try:
-            if len(self.idCat) == 0:
+            if self.idCat == 0:
                 messagebox.showwarning('Atenção', 'Preencha o campo de busca por categoria para consultar')
             else:
                 self.idCat = int(self.idCat)
                 self.treeLista.delete(*self.treeLista.get_children())
                 self.resCat = self.prod.listarPorCategoria(self.idCat)
-                try:
-                    if len(self.resCat) == 0:
-                        messagebox.showwarning('Atenção', 'Nenhum produto encontrado')
-                    else:
-                        for r in self.resCat:
-                            self.treeLista.insert('', END, values=r)
-                except:
-                    messagebox.showerror('Erro', 'Erro no resultado')
-        except:
+                print(self.resCat)
+                if len(self.resCat) == 0:
+                    messagebox.showwarning('Atenção', 'Nenhum produto encontrado')
+                else:
+                    for r in self.resCat:
+                        self.treeLista.insert('', END, values=r)
+        except Exception as er:  
             messagebox.showerror('Erro', 'Não foi possível buscar por categoria')
+            print(er)
         self.limpa_campos_produto()
 
     def editarProduto(self):
@@ -147,15 +146,15 @@ class Conectivos(produto.Produto):
             if (len(self.et_descricao.get()) == 0 or 
                 len(self.et_fornecedor.get()) == 0 or 
                 self.et_quantidade.get() == 0 or 
-                self.et_preco.get() == 0 or
+                self.et_precoUnit.get() == 0 or
                 len(self.categoria.get()) == 0 or
                 len(self.et_data.get()) == 0):
                 messagebox.showwarning('Alerta', 'Por favor preencha os campos obrigatórios')
             elif len(self.et_descricao.get()) > 120:
                 messagebox.showwarning('Atenção', 'Preencha a descrição corretamente')
-            elif self.et_fornecedor.get() > 40:
-                messagebox.showwarning('Atenção', 'Campo de fornecedor com tamnho maior que o permitido')
-            elif self.et_data.get() > 10:
+            elif len(self.et_fornecedor.get()) > 40:
+                messagebox.showwarning('Atenção', 'Campo de fornecedor com tamanho maior que o permitido')
+            elif len(self.et_data.get()) > 10:
                 messagebox.showwarning('Atenção', 'Preencha a data corretamente')
             else:
                 self.prod.set_descricao(self.et_descricao.get())
@@ -167,7 +166,7 @@ class Conectivos(produto.Produto):
                 elif self.categoria.get() == 'Alvenaria':
                     self.prod.set_idCategoria(2)
                 self.prod.set_data(self.et_data.get())
-                self.prod.set_total(float(self.resultado.get()))
+                self.prod.set_total(float(self.et_precoUnit.get()) * int(self.et_quantidade.get()))
                 self.prod.alterarProduto(self.identicadorProduto, 
                                 self.prod.get_descricao(), 
                                 self.prod.get_fornecedor(), 
@@ -178,8 +177,9 @@ class Conectivos(produto.Produto):
                                 self.prod.get_idCategoria())
                 messagebox.showinfo('Sistema', 'Produto alterado com sucesso!')
                 self.exibirProdutos()
-        except:
+        except Exception as e:
             messagebox.showerror('Erro', 'Houve um erro na alteração do produto')
+            print(e)
         self.limpa_campos_produto()
 
     def deletarProduto(self):
@@ -210,7 +210,7 @@ class Conectivos(produto.Produto):
         self.limpa_campos_produto()
         self.itemSelecionado = self.treeLista.selection()
         self.selecionados = list(self.treeLista.item(self.itemSelecionado, 'values'))
-        self.codigo = self.selecionados[0]
+        self.codigo = int(self.selecionados[0])
         self.et_descricao.insert(0, self.selecionados[1])
         self.et_fornecedor.insert(0, self.selecionados[2])
         self.et_quantidade.insert(0, self.selecionados[3])
@@ -222,6 +222,7 @@ class Conectivos(produto.Produto):
             self.categoria.set('Acabamento')
         elif int(self.selecionados[7]) == 2:
             self.categoria.set('Alvenaria')
+
 
     def limpa_campos_produto(self):
         """

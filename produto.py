@@ -1,9 +1,7 @@
 import bancoDado
 
 class Produto:
-    banco = bancoDado.BancoDados()
-    banco.tabelaCategoria()
-    banco.tabelaProduto()
+    
     def __init__(self = None, 
                 descricao = None, 
                 fornecedor = None, 
@@ -65,6 +63,7 @@ class Produto:
         self.__idCategoria = id
 
     def cadastrar(self, desc:str, forne:str, quant:int, preco:float, total:float, data:str, idCategoria:int) -> None:
+        self.banco = bancoDado.BancoDados()
         """
         Função responsável por cadastrar o produto
         :param: desc, forne, quant, preco, total, data, idCategoria.
@@ -84,13 +83,14 @@ class Produto:
             self.banco.desconectar()
 
     def listarProdutos(self) -> list:
+        self.banco = bancoDado.BancoDados()
         """
         Esta função tem como objetivo exibir a lista de todos os produtos cadastrados
         :return: Retorna uma lista com todos os produtos.
         """
         try:
             self.banco.conectar()
-            self.produtos = self.banco.cursor.execute(" SELECT * FROM produto").fetchall()
+            self.produtos = self.banco.cursor.execute('SELECT * FROM  produto').fetchall()
         except(NameError, ConnectionError, TypeError):
                 print('\033[1;33mErro ao listar os produtos\033[m')
         else:
@@ -99,6 +99,7 @@ class Produto:
             self.banco.desconectar()
     
     def listarProduto(self, descricaoProduto: str) -> list:
+        self.banco = bancoDado.BancoDados()
         """
         Procurar um produto específico de acordo com o parâmetro passado.
         :param: descricaoProduto.
@@ -115,7 +116,8 @@ class Produto:
         finally:
             self.banco.desconectar()
     
-    def listarPorCategoria(self, IdCategoria:int) -> list:
+    def listarPorCategoria(self, IdCategoria:str) -> list:
+        self.banco = bancoDado.BancoDados()
         """
         Esta função recebe um parâmetro inteiro, onde através desse parâmetro, exibimos 
         os produtos por categoria 
@@ -124,7 +126,6 @@ class Produto:
         """
         try:
             self.banco.conectar()
-             
             self.porCategoria = self.banco.cursor.execute(f'''SELECT idProduto, descricao, fornecedor, quantidade, precoUnitario, precoTotal, dataCompra, categoriaProduto.nomeCategoria 
                 from categoriaProduto, Produto  WHERE categoriaProduto.idCategoria = Produto.idCategoria and categoriaProduto.idCategoria = {IdCategoria} ''').fetchall()
         except:
@@ -135,6 +136,7 @@ class Produto:
             self.banco.desconectar()
 
     def alterarProduto(self, idProduto:int, desc:str, forne:str, quant:int, preco:float, total:float, data:str, idCategoria:int) -> None:
+        self.banco = bancoDado.BancoDados()
         """
         Esta função tem por objetivo alterar os valores cadastrado de um produto especifico.
         :param: idProduto, desc, forne, quant, preco, total, data, idCategoria.
@@ -160,6 +162,7 @@ class Produto:
             self.banco.desconectar()
     
     def excluirProduto(self, idProduto: int) -> None:
+        self.banco = bancoDado.BancoDados()
         """
         Esta função exclui um produto de acordo com o idProduto do recebido.
         :param: idProduto recebe um valor inteiro. 
