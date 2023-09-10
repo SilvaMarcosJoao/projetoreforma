@@ -29,7 +29,7 @@ class BancoDados:
         except (ConnectionError, sqlite3.Error):
             print('\033[1;32mErro ao desconectar-se\033[m')
         else:
-            print('Descontectado')
+            print('Desconectado')
 
     def tabelaCategoria(self) -> None:
         try:
